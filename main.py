@@ -13,10 +13,13 @@ server_socket.bind((SERVER_HOST, SERVER_PORT))
 server_socket.listen(5)
 server_socket.settimeout(1.0)
 
-print("Listening on port ", SERVER_PORT)
+print(f"Listening on http://localhost:{SERVER_PORT}")
 try:
     while True:
-        client_socket, client_address = server_socket.accept()
+        try:
+            client_socket, client_address = server_socket.accept()
+        except:
+            continue
         request = client_socket.recv(1024).decode()
         print(request)
         header_part, _, body = request.partition("\r\n\r\n")
