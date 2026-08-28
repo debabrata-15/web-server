@@ -1,0 +1,1 @@
+ROUTES = {"/": "index.html", "/book": "book.json"}
