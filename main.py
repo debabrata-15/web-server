@@ -39,7 +39,7 @@ try:
         if http_method == "GET":
             response = get_handler(path)
         elif http_method == "POST":
-            reposne = post_handler(path ,body)
+            response = post_handler(path ,body)
         elif http_method == "PUT":
             response = put_handler(path,body)
         elif http_method == "DELETE":
@@ -47,7 +47,10 @@ try:
         else:
             response = "HTTP/1.1 405 Method Not Allowed\n\nAllow: GET,PUT,DELETE,POST"
 
-        client_socket.sendall(response.encode())
+        if isinstance(response,str):
+            client_socket.sendall(response.encode())
+        else:
+            client_socket.sendall(response)
         client_socket.close()
 except KeyboardInterrupt:
     print('Shutting down server...')
